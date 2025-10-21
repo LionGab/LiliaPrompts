@@ -96,7 +96,8 @@
                 angulo: '',
                 publico: '',
                 formato: 'reels',
-                promptPersonalizado: ''
+                promptPersonalizado: '',
+                tipoPrompt: 'padrao' // novo: padrao, ofensivo, educacao, emocional, vendas
             });
             
             const [roteiros, setRoteiros] = useState([]);
@@ -122,7 +123,7 @@
                 setError('');
                 setRoteiros([]);
 
-                const promptBase = config.promptPersonalizado || gerarPromptPadrao();
+                const promptBase = config.promptPersonalizado || gerarPromptPorTipo();
 
                 try {
                     const response = await fetch("/.netlify/functions/generate-hooks", {
@@ -149,6 +150,164 @@
                 } finally {
                     setIsLoading(false);
                 }
+            };
+
+            const gerarPromptPorTipo = () => {
+                const prompts = {
+                    ofensivo: () => `🔥 GERADOR DE ROTEIROS OFENSIVOS
+
+Aja como um especialista em copywriting agressivo, marketing digital de alta conversão e creator de conteúdo que "bate" no mercado saturado.
+
+**SEU PAPEL:** Você é um estrategista que cria narrativas desvalorizando métodos antigos e posicionando soluções novas.
+
+**CONTEXTO:**
+- Mercado: Marketing digital saturado com cursos baratos, tráfego pago caro
+- Seu público: ${config.publico}
+- Sua oferta: Consultoria HIGH TICKET com transformação real
+- Seu diferencial: Você entrega resultado real enquanto outros vendem esperança
+
+**FOCO ESPECÍFICO:**
+${config.foco}
+
+**ÂNGULO PRINCIPAL:**
+${config.angulo || 'Contraste (velho vs novo) + Medo de ficar para trás + Esperança de novo jeito'}
+
+**ESTRUTURA OBRIGATÓRIA:**
+1. GANCHO (5-10 seg) - Afirmação provocativa que machuca
+2. CRÍTICA (20-30 seg) - Expõe o que está ERRADO no método antigo
+3. REVELAÇÃO (30-40 seg) - Mostra o NOVO jeito com história pessoal
+4. PROVOCAÇÃO (10-15 seg) - Urgência + convite para ação
+
+**GATILHOS PSICOLÓGICOS OBRIGATÓRIOS:**
+- Medo (vai ficar para trás)
+- Raiva (foi enganado)
+- Urgência (barco está saindo)
+- Esperança (tem um jeito novo)
+- Exclusividade (só quem entender)
+
+**TON:**
+- Direto, sem enrolação
+- Agressivo mas não ofensivo (crítica ao método, não à pessoa)
+- Que gere compartilhamento ("meu Deus, é verdade")
+- Que gere comentários tipo "fake" ou "verdade"
+
+**RESTRIÇÕES:**
+- PROIBIDO: Generalizar pessoas como "burras"
+- PROIBIDO: Fazer promessas impossíveis
+- PROIBIDO: Atacar pessoa física
+- OBRIGATÓRIO: Contraste CLARO velho vs novo
+- OBRIGATÓRIO: Deixar explícito por que ouvir VOCÊ
+
+**FORMAT DE OUTPUT:**
+Para cada roteiro: [TÍTULO] → Gancho / Crítica / Revelação / Provocação / Por que funciona / Melhor formato / Público que converte
+
+Crie ${config.quantidade} roteiros OFENSIVOS que batem MESMO.`,
+
+                    educacao: () => `📚 GERADOR DE ROTEIROS EDUCACIONAIS
+
+Crie roteiros educacionais que ensinam algo VALIOSO em ${config.formato === 'reels' ? '30-60 segundos' : '10-20 segundos'}, com tons de autoridade mas acessível.
+
+**OBJETIVO:** Posicione como especialista enquanto ensino algo que as pessoas realmente precisam saber.
+
+**PÚBLICO-ALVO:**
+${config.publico}
+
+**FOCO ESPECÍFICO:**
+${config.foco}
+
+**ESTRUTURA OBRIGATÓRIA:**
+1. GANCHO (5 seg) - Pergunta instigante ou revelação que choca
+2. EDUCAÇÃO (30 seg) - Ensino o conceito/tática de forma clara
+3. APLICAÇÃO (15 seg) - Como usar isso agora mesmo
+4. CTA (10 seg) - Próximo passo ou convite
+
+**TON:**
+- Expert mas acessível (ensina bem, não é chato)
+- Baseado em dados/experiência real
+- Que gere salvos e compartilhamentos
+- Que gere perguntas nos comentários
+
+**EXEMPLOS DE FOCO:**
+- Tática específica
+- Conceito que ninguém explica certo
+- Erro comum que pessoas fazem
+- Verdade que ninguém fala
+
+Crie ${config.quantidade} roteiros EDUCACIONAIS que ensinam e posicionam como autoridade.`,
+
+                    emocional: () => `❤️ GERADOR DE ROTEIROS EMOCIONAIS
+
+Crie roteiros com histórias pessoais que geram CONEXÃO EMOCIONAL genuína e compartilhamento.
+
+**OBJETIVO:** Fazer pessoas se identificarem, criando comunidade ao redor do seu conteúdo.
+
+**PÚBLICO-ALVO:**
+${config.publico}
+
+**FOCO ESPECÍFICO:**
+${config.foco}
+
+**ESTRUTURA OBRIGATÓRIA:**
+1. SITUAÇÃO (10 seg) - Contexto relatable que a pessoa se identifica
+2. CONFLITO (15 seg) - O problema emocional/dilema
+3. TRANSFORMAÇÃO (20 seg) - Como você mudou/cresceu
+4. LIÇÃO (15 seg) - O que a pessoa pode aprender com sua história
+
+**GATILHOS EMOCIONAIS:**
+- Identificação (ela se vê naquela história)
+- Esperança (se deu certo comigo, pode dar com você)
+- Pertencimento (aqui temos gente como você)
+- Inspiração (quero ser assim também)
+
+**TON:**
+- Autêntico e vulnerável
+- Sem exagero ou fake
+- Que gere comentários tipo "isso é tão verdade"
+- Que gere salvos e seguidos
+
+Crie ${config.quantidade} roteiros EMOCIONAIS que conectam no coração.`,
+
+                    vendas: () => `💰 GERADOR DE ROTEIROS DE VENDAS
+
+Crie roteiros de venda que CONVERTEM usando urgência, escassez e proof social, mantendo autenticidade.
+
+**OBJETIVO:** Gerar conversão de ouvinte → cliente sem parecer agressivo ou fake.
+
+**PÚBLICO-ALVO:**
+${config.publico}
+
+**FOCO ESPECÍFICO:**
+${config.foco}
+
+**ESTRUTURA OBRIGATÓRIA:**
+1. GANCHO (5 seg) - Pega atenção com benefício claro
+2. PROBLEMA (10 seg) - Identifica a dor específica da pessoa
+3. SOLUÇÃO (20 seg) - Apresenta sua oferta + prova social/dados
+4. URGÊNCIA (15 seg) - Escassez + CTA claro e direto
+
+**ELEMENTOS OBRIGATÓRIOS:**
+- Benefício específico (não genérico)
+- Prova: número, depoimento, resultado real
+- Escassez: vagas limitadas, promoção por tempo, exclusividade
+- CTA direto: link, WhatsApp, mensagem clara
+
+**TON:**
+- Consultivo, não vendedor agressivo
+- Que resolve problema real
+- Que gere urgência genuína
+- Que gere cliques/ações
+
+**EXEMPLOS DE URGÊNCIA:**
+- "Só 3 vagas para X"
+- "Valor sobe segunda"
+- "Acesso por 48h só"
+
+Crie ${config.quantidade} roteiros de VENDAS que convertem com autenticidade.`,
+
+                    padrao: () => gerarPromptPadrao()
+                };
+
+                return prompts[config.tipoPrompt] ? prompts[config.tipoPrompt]() : prompts.padrao();
             };
 
             const gerarPromptPadrao = () => {
@@ -305,6 +464,25 @@ Agora crie os ${config.quantidade} roteiros seguindo exatamente esta estrutura.`
                                         onChange={handleInputChange}
                                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition"
                                     />
+                                </div>
+
+                                {/* Tipo de Prompt */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        Estilo de Roteiro 🔥
+                                    </label>
+                                    <select
+                                        name="tipoPrompt"
+                                        value={config.tipoPrompt}
+                                        onChange={handleInputChange}
+                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition"
+                                    >
+                                        <option value="padrao">📋 Padrão (Estruturado)</option>
+                                        <option value="ofensivo">🔥 Ofensivo (Agressivo)</option>
+                                        <option value="educacao">📚 Educacional (Ensina)</option>
+                                        <option value="emocional">❤️ Emocional (Conecta)</option>
+                                        <option value="vendas">💰 Vendas (Converte)</option>
+                                    </select>
                                 </div>
 
                                 {/* Formato */}
