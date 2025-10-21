@@ -4,21 +4,16 @@ const client = new Anthropic({
   apiKey: process.env.CLAUDE_API_KEY,
 });
 
-const SYSTEM_PROMPT = `Você é um especialista em React Hooks.
+const SYSTEM_PROMPT = `Você é um especialista em criação de conteúdo viral para redes sociais.
 
-Crie hooks bem estruturados com:
-- JSDoc completo
-- Comentários explicativos
-- Tratamento de erros
-- Exemplos de uso
-- Compatível com React 18+`;
+Crie roteiros persuasivos e autênticos que convertem, seguindo estrutura de gancho, contexto, revelação e CTA.`;
 
 function validateUserPrompt(prompt) {
   if (!prompt || typeof prompt !== "string") {
     throw new Error("Prompt inválido");
   }
-  if (prompt.length > 2000) {
-    throw new Error("Prompt muito longo");
+  if (prompt.length > 10000) {
+    throw new Error("Prompt muito longo (máximo 10000 caracteres)");
   }
   if (prompt.length < 10) {
     throw new Error("Prompt muito curto");
@@ -60,7 +55,7 @@ export const handler = async (event, context) => {
 
     const message = await client.messages.create({
       model: "claude-3-5-sonnet-20241022",
-      max_tokens: 2048,
+      max_tokens: 4096,
       system: SYSTEM_PROMPT,
       messages: [{ role: "user", content: validatedPrompt }],
     });
