@@ -6,7 +6,7 @@ Este guia serve como referência para você usar o **Gerador de Roteiros** em v�
 
 ---
 
-## 📊 5 ESTILOS DE ROTEIROS DISPONÍVEIS
+## 📊 6 ESTILOS DE ROTEIROS DISPONÍVEIS
 
 ### 1. 🔥 **OFENSIVO (Agressivo)**
 **Quando usar:** Quando quer bater no mercado saturado, criticar métodos antigos, gerar polêmica construtiva
@@ -103,6 +103,37 @@ GANCHO → PROBLEMA → SOLUÇÃO (+ prova) → URGÊNCIA (+ CTA)
 - Balanceado entre venda e educação
 - Com dicas de engajamento
 - Que funciona em qualquer contexto
+
+---
+
+### 6. ⚡ **BLACK V3 (Viraliza)**
+**Quando usar:** Quando quer TRAVAR o scroll e VIRALIZAR de verdade com engenharia de atenção
+
+**Características:**
+- Engenharia de atenção científica (trava scroll nos 2 primeiros segundos)
+- Tensão rítmica a cada 3-5 segundos
+- Frases memoráveis para print/story
+- Psicologia embutida (curiosidade inconclusa, identificação, validação)
+- Saída em tabela detalhada (TEMPO | VISUAL | FALA | TEXTO NA TELA | OBSERVAÇÃO)
+
+**Elementos únicos:**
+- 6 tipos de ganchos validados (contradição, dor, confissão, revelação, mito, comando)
+- 5 estruturas de alto desempenho (Mito→Verdade, Lista Reversa, Plot Twist, etc)
+- Sugestões de áudio e trilha sonora
+- Motivo por que vai viralizar
+
+**Configurações especiais:**
+- **Duração:** Escolha 15s, 30s ou 60s (ajusta toda a estrutura)
+- **Nível de Produção:** Caseiro (celular) / Intermediário (edição básica) / Profissional (visual detalhado)
+- **Formato:** Reels, TikTok ou Stories
+
+**Estrutura:**
+```
+GANCHO (0-3s) → DESENVOLVIMENTO (micro-tensão) → PAYOFF FINAL (frase memorável)
+```
+
+**Saída esperada:**
+Cada roteiro vem com tabela mostrando timing exato, instruções visuais, fala, texto na tela, tipo de estrutura, áudio sugerido e análise de por que vai viralizar.
 
 ---
 
@@ -288,6 +319,37 @@ PÚBLICO-ALVO:
 
 ---
 
+### EXEMPLO 5: BLACK V3 - Roteiro Viralizante
+
+```
+ESTILO: ⚡ BLACK V3
+FORMATO: Reels
+DURAÇÃO: 30 segundos
+NÍVEL DE PRODUÇÃO: Intermediário
+
+FOCO ESPECÍFICO:
+"Desvalorizar tráfego pago - mostra por que está morrendo em 2025"
+
+PÚBLICO-ALVO:
+"Mulheres de 25-40 que gastam 500-2mil/mês com ads"
+
+ÂNGULO PSICOLÓGICO:
+"Raiva (jogou dinheiro fora) + Medo (vai quebrar) + Esperança (tem alternativa)"
+```
+
+**Resultado esperado:** Roteiro em tabela com:
+- TEMPO: 0-3s / 4-8s / 9-15s / 16-25s / 26-30s
+- VISUAL: Instruções exatas (gesto, movimento câmera, transição)
+- FALA: Texto exato para falar
+- TEXTO NA TELA: Máx 6 palavras, palavras-chave em CAPS
+- OBSERVAÇÃO: Por que funciona (psicologia)
+
+**Estrutura usada:** Mito → Verdade Revelada → CTA
+**Áudio:** Tensão crescente + batida urbana
+**Por que vai viralizar:** Contradição + dado real + esperança + urgência
+
+---
+
 ## ⚡ DICAS PRO
 
 ### 1. **Especificidade é Poder**
@@ -313,6 +375,15 @@ Mude para "Esperança + Urgência" na outra
 - **Stories:** Mais intimate, mais conversacional
 - **Carrossel:** Mais educacional, passo a passo
 - **Lives:** Mais authentic, mais spontaneous
+
+### 6. **BLACK V3 - Segredos de Viralização**
+- **Gancho em 2 segundos:** Se não pegar em 2s, ninguém vê até o final
+- **Mudança visual a cada 3-5s:** Prende atenção automaticamente
+- **Frase final memorável:** Deve ser repetível (print, story, comment)
+- **Produção caseira funciona:** Autenticidade > produção 4K
+- **Teste diferentes ganchos:** Mesma ideia, 3 formas diferentes de começar
+- **Texto na tela em CAPS:** Destaca palavras-chave e aumenta retenção
+- **Tensão até o final:** Não revele tudo no meio do vídeo
 
 ---
 
