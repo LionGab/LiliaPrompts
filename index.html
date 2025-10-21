@@ -125,20 +125,13 @@
                 const promptBase = config.promptPersonalizado || gerarPromptPadrao();
 
                 try {
-                    const response = await fetch("https://api.anthropic.com/v1/messages", {
+                    const response = await fetch("/.netlify/functions/generate-hooks", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            model: "claude-sonnet-4-20250514",
-                            max_tokens: 4000,
-                            messages: [
-                                { 
-                                    role: "user", 
-                                    content: promptBase
-                                }
-                            ]
+                            prompt: promptBase
                         })
                     });
 
@@ -147,7 +140,7 @@
                     }
 
                     const data = await response.json();
-                    const roteirosGerados = parseRoteiros(data.content[0].text);
+                    const roteirosGerados = parseRoteiros(data.hooks);
                     setRoteiros(roteirosGerados);
                     
                 } catch (err) {
