@@ -46,6 +46,7 @@ export const handler = async (event, context) => {
     const validatedPrompt = validateUserPrompt(prompt);
 
     if (!process.env.CLAUDE_API_KEY) {
+      console.error("CLAUDE_API_KEY not found in environment variables");
       return {
         statusCode: 500,
         headers: { "Content-Type": "application/json" },
@@ -53,12 +54,17 @@ export const handler = async (event, context) => {
       };
     }
 
+    console.log("API Key detected:", process.env.CLAUDE_API_KEY.substring(0, 10) + "...");
+    console.log("Making request to Anthropic API...");
+
     const message = await client.messages.create({
       model: "claude-3-5-sonnet-20241022",
       max_tokens: 4096,
       system: SYSTEM_PROMPT,
       messages: [{ role: "user", content: validatedPrompt }],
     });
+
+    console.log("Response received successfully");
 
     const generatedHooks = message.content[0].type === "text" ? message.content[0].text : "";
 
@@ -86,21 +92,34 @@ export const handler = async (event, context) => {
       }),
     };
   } catch (error) {
-    console.error("Erro:", error);
+    console.error("Full error object:", JSON.stringify(error, null, 2));
+    console.error("Error message:", error.message);
+    console.error("Error status:", error.status);
 
     if (error.status === 401) {
+      console.error("401 Unauthorized - API Key may be invalid or expired");
       return {
         statusCode: 401,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ error: "API Key invalida" }),
+        body: JSON.stringify({ error: "API Key invalida ou expirada" }),
       };
     }
 
     if (error.status === 429) {
+      console.error("429 Rate limit exceeded");
       return {
         statusCode: 429,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ error: "Rate limit atingido" }),
+      };
+    }
+
+    if (error.status === 500) {
+      console.error("500 Server error from Anthropic");
+      return {
+        statusCode: 500,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ error: "Erro no servidor Anthropic" }),
       };
     }
 
