@@ -96,8 +96,10 @@
                 angulo: '',
                 publico: '',
                 formato: 'reels',
+                duracao: 30,
+                nivelProducao: 'intermediario',
                 promptPersonalizado: '',
-                tipoPrompt: 'padrao' // novo: padrao, ofensivo, educacao, emocional, vendas
+                tipoPrompt: 'padrao' // novo: padrao, ofensivo, educacao, emocional, vendas, blackv3
             });
             
             const [roteiros, setRoteiros] = useState([]);
@@ -306,6 +308,72 @@ ${config.foco}
 
 Crie ${config.quantidade} roteiros de VENDAS que convertem com autenticidade.`,
 
+                    blackv3: () => `⚡ BLACK V3 – ROTEIROS DE REELS VIRALIZANTES
+
+Você é um especialista em engenharia de atenção, viralização e copy de conversão em vídeo curto.
+
+**MISSÃO:** Criar roteiros de Reels/TikTok (${config.duracao} segundos) que:
+- Travam o scroll nos 2 primeiros segundos
+- Geram retenção até o final com payoff
+- Criam tensão e curiosidade a cada 3-5 segundos
+- Incluem frase memorável para print ou compartilhamento
+
+**TEMA DO VÍDEO:**
+${config.foco}
+
+**PÚBLICO-ALVO:**
+${config.publico}
+
+**OBJETIVO:**
+${config.angulo || 'Viralizar + criar autoridade'}
+
+**DURAÇÃO:** ${config.duracao} segundos
+**NÍVEL DE PRODUÇÃO:** ${config.nivelProducao === 'caseiro' ? 'Caseiro (celular, sem edição complexa)' : config.nivelProducao === 'intermediario' ? 'Intermediário (edição básica + efeitos)' : 'Profissional (roteiro visual detalhado)'}
+
+**GANCHOS VALIDADOS - escolha 1-2:**
+- Contradição direta ("Parar de estudar me fez ganhar mais")
+- Dor relacionada ("Você se sente inútil quando…")
+- Confissão proibida ("Eu enganei meus seguidores por 6 meses")
+- Revelação ("O que descobri depois de perder R$50 mil")
+- Mito quebrado ("Não, o café da manhã NÃO é essencial")
+- Comando hipnótico ("Assista antes de dormir hoje")
+
+**ESTRUTURA OBRIGATÓRIA:**
+
+1. GANCHO (0-3s): Frase exata + visual que interrompe scroll
+2. DESENVOLVIMENTO (3-${Math.max(config.duracao - 15, 10)}s): Blocos de 5-10s com microtensão
+   - Cada bloco gera ou tensão ou revelação
+   - Inclua instruções visuais específicas
+3. PAYOFF FINAL (últimos ${Math.min(15, Math.floor(config.duracao / 4))}s): Entrega de valor + frase memorável
+4. TEXTO NA TELA: Máx 6 palavras por cena, destaque em CAPS
+5. ÁUDIO IDEAL: Descreva tipo de trilha (trendy, emocional, tensão crescente)
+6. CTA NATURAL: Comando com contexto (ex: "Qual dos 3 você ainda faz?")
+
+**ESTRUTURAS DE ALTO DESEMPENHO:**
+- Mito → Verdade Revelada → CTA surpresa
+- Lista Reversa (3,2,1) → Causa → Solução
+- Plot twist (expectativa quebrada no final)
+- Tutorial com erro invisível comum
+- Transformação em 3 atos (dor, virada, domínio)
+
+**PSICOLOGIA EMBUTIDA:**
+- Curiosidade inconclusa que obriga ver até o fim
+- Microtensão rítmica (mudar a cada 3-5s)
+- Identificação social ("Se você já tentou de tudo…")
+- Validação emocional ("Sim, é normal se sentir assim")
+- Frase printável (parece feita pra story)
+
+**FORMAT DE SAÍDA (obrigatório):**
+Crie tabela com colunas: TEMPO | VISUAL | FALA | TEXTO NA TELA | OBSERVAÇÃO TÉCNICA
+
+Inclua também:
+- Título com emoji e palavra-chave
+- Tipo de estrutura usada
+- Áudio sugerido
+- Por que vai viralizar
+
+Crie ${config.quantidade} roteiros que TRAVAM o scroll e VIRALIZAM de verdade.`,
+
                     padrao: () => gerarPromptPadrao()
                 };
 
@@ -484,6 +552,7 @@ Agora crie os ${config.quantidade} roteiros seguindo exatamente esta estrutura.`
                                         <option value="educacao">📚 Educacional (Ensina)</option>
                                         <option value="emocional">❤️ Emocional (Conecta)</option>
                                         <option value="vendas">💰 Vendas (Converte)</option>
+                                        <option value="blackv3">⚡ BLACK V3 (Viraliza)</option>
                                     </select>
                                 </div>
 
@@ -500,6 +569,41 @@ Agora crie os ${config.quantidade} roteiros seguindo exatamente esta estrutura.`
                                     >
                                         <option value="reels">Reels (15-60s)</option>
                                         <option value="stories">Stories (5-15s)</option>
+                                        <option value="tiktok">TikTok (15-60s)</option>
+                                    </select>
+                                </div>
+
+                                {/* Duração */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        Duração do vídeo (segundos)
+                                    </label>
+                                    <select
+                                        name="duracao"
+                                        value={config.duracao}
+                                        onChange={handleInputChange}
+                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition"
+                                    >
+                                        <option value="15">15 segundos</option>
+                                        <option value="30">30 segundos</option>
+                                        <option value="60">60 segundos</option>
+                                    </select>
+                                </div>
+
+                                {/* Nível de Produção */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        Nível de Produção
+                                    </label>
+                                    <select
+                                        name="nivelProducao"
+                                        value={config.nivelProducao}
+                                        onChange={handleInputChange}
+                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition"
+                                    >
+                                        <option value="caseiro">🏠 Caseiro (celular, sem edição complexa)</option>
+                                        <option value="intermediario">🎬 Intermediário (edição básica + efeitos)</option>
+                                        <option value="profissional">🎥 Profissional (com roteiro visual detalhado)</option>
                                     </select>
                                 </div>
 
