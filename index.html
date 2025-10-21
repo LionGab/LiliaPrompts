@@ -114,8 +114,10 @@
             };
 
             const gerarRoteiros = async () => {
-                if (!config.foco || !config.publico) {
-                    setError('Preencha pelo menos o FOCO e o PÚBLICO para gerar roteiros de qualidade!');
+                // Se tem prompt personalizado, usa ele diretamente
+                // Se não, valida os campos obrigatórios
+                if (!config.promptPersonalizado && (!config.foco || !config.publico)) {
+                    setError('Preencha pelo menos o FOCO e o PÚBLICO para gerar roteiros de qualidade! Ou use um Prompt Personalizado.');
                     return;
                 }
 
@@ -554,14 +556,53 @@ Agora crie os ${config.quantidade} roteiros seguindo exatamente esta estrutura.`
                                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                                         Prompt Personalizado (Opcional)
                                     </label>
+                                    <div className="mb-3 flex gap-2 flex-wrap">
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setConfig(prev => ({
+                                                    ...prev,
+                                                    promptPersonalizado: "Crie 3 hooks de vídeo curtos e impactantes que parem o scroll, focados em storytelling emocional com call-to-action claro."
+                                                }));
+                                            }}
+                                            className="text-xs px-3 py-1 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-lg transition"
+                                        >
+                                            Template: Hooks Virais
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setConfig(prev => ({
+                                                    ...prev,
+                                                    promptPersonalizado: "Escreva 2 textos de educação que ensinam algo valioso em 30 segundos, com tons de autoridade mas acessível."
+                                                }));
+                                            }}
+                                            className="text-xs px-3 py-1 bg-pink-100 hover:bg-pink-200 text-pink-700 rounded-lg transition"
+                                        >
+                                            Template: Educação
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setConfig(prev => ({
+                                                    ...prev,
+                                                    promptPersonalizado: "Gere 2 scripts de venda com técnica de escassez e urgência, mas mantendo autenticidade."
+                                                }));
+                                            }}
+                                            className="text-xs px-3 py-1 bg-orange-100 hover:bg-orange-200 text-orange-700 rounded-lg transition"
+                                        >
+                                            Template: Vendas
+                                        </button>
+                                    </div>
                                     <textarea
                                         name="promptPersonalizado"
                                         value={config.promptPersonalizado}
                                         onChange={handleInputChange}
-                                        placeholder="Deixe em branco para usar o prompt otimizado padrão, ou cole seu próprio prompt aqui..."
+                                        placeholder="Deixe em branco para usar o prompt otimizado padrão, ou cole seu próprio prompt aqui... Você pode clicar nos templates acima para começar!"
                                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition resize-none font-mono text-sm"
                                         rows="6"
                                     />
+                                    <p className="text-xs text-gray-500 mt-1">💡 Use seu próprio prompt para ter controle total sobre o resultado!</p>
                                 </div>
 
                                 {/* Botão Gerar */}
