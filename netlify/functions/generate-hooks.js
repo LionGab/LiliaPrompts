@@ -1,4 +1,4 @@
-const Anthropic = require("@anthropic-ai/sdk");
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
   apiKey: process.env.CLAUDE_API_KEY,
@@ -26,7 +26,7 @@ function validateUserPrompt(prompt) {
   return prompt.trim();
 }
 
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
